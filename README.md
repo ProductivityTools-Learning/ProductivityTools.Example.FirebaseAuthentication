@@ -13,3 +13,9 @@ Diagram below presents all compoonents of the solution.
 - Cloud run - python application needs to validate bearer token and return data to react or to windows app
 
 ![Arch](Images/Arch.png)
+
+## CloudRunPythonBackend
+
+We have folowing resources
+- Date - not protected resource which will allow us to always validate if service is working https://localhost:8080/Date
+- ProtectedDate - protected resource https://localhost:8080/Date

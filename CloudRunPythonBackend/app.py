@@ -4,6 +4,8 @@ from flask_restful import Api
 import os
 
 from Resources.Date import DateResource
+from Resources.ProtectedDateResource import ProtectedDateResource
+from Resources.Token import TokenResource
 
 def create_app():
     app=Flask(__name__)
@@ -14,6 +16,8 @@ def create_app():
 def register_resources(app):
     api=Api(app)
     api.add_resource(DateResource,"/Date")
+    api.add_resource(ProtectedDateResource,"/ProtectedDate")
+    api.add_resource(TokenResource,"/Token")
 
 if __name__=="__main__":
     app=create_app()
