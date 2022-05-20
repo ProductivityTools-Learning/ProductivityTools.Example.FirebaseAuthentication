@@ -9,6 +9,7 @@ def create_app():
     app=Flask(__name__)
     CORS(app)
     register_resources(app)
+    return app
 
 def register_resources(app):
     api=Api(app)

@@ -1,8 +1,10 @@
+from flask import jsonify
 from flask_restful import Resource
 from http import HTTPStatus
-from datetime import date
+from datetime import datetime
 
 class DateResource(Resource):
     def get(selfs):
-        today=date.today()
-        return today,HTTPStatus.OK
+        today=datetime.now()
+        tstr=today.strftime('%m/%d/%Y %H:%m')
+        return tstr,HTTPStatus.OK
