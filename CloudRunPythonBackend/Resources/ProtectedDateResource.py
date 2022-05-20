@@ -6,5 +6,5 @@ from datetime import datetime
 class ProtectedDateResource(Resource):
     def get(selfs):
         today=datetime.now()
-        tstr=today.strftime('%m/%d/%Y %H:%m')
+        tstr=today.strftime('%m/%d/%Y %H:%m:%S')
         return tstr,HTTPStatus.OK

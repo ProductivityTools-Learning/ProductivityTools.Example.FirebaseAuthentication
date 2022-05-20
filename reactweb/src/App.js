@@ -11,8 +11,8 @@ function App() {
     setDate(x);
   }
 
-  const getProtectedDate=() => {
-    let x = apiService.getProtectedDate();
+  const getProtectedDate=async () => {
+    let x = await apiService.getProtectedDate();
     setProtectedDate(x);
   }
 
