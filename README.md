@@ -1,1 +1,1 @@
-# ProductivityTools.Example.FirebaseAuthentication
+# FirebaseAuthentication
