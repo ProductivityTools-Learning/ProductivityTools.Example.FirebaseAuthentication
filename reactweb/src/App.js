@@ -1,5 +1,6 @@
 import apiService from "./apiService";
-import {useState} from 'react'
+import { useState } from 'react'
+import Login from './login'
 
 function App() {
 
@@ -11,15 +12,16 @@ function App() {
     setDate(x);
   }
 
-  const getProtectedDate=async () => {
+  const getProtectedDate = async () => {
     let x = await apiService.getProtectedDate();
     setProtectedDate(x);
   }
 
   return (
     <div className="App">
-      <button onClick={getDate}>GetDate</button> <span>{date}</span>
-      <button onClick={getProtectedDate}>GetDate</button> <span>{protectedDate}</span>
+      <button onClick={getDate}>GetDate</button> <span>{date}</span><br />
+      <button onClick={getProtectedDate}>GetDate Protected</button> <span>{protectedDate}</span>
+      <Login />
     </div>
   );
 }
