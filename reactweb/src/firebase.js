@@ -26,7 +26,6 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
     try {
-        debugger;
         const res = await signInWithPopup(auth, googleProvider);
         console.log(res);
     } catch (err) {
@@ -37,7 +36,6 @@ const signInWithGoogle = async () => {
 
 const logout = () => {
     signOut(auth);
-    
 };
 
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import { auth, signInWithGoogle } from "./firebase"
+import { auth, signInWithGoogle, logout } from "./firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 
 export default function Login() {
@@ -18,8 +18,13 @@ export default function Login() {
     // }, [user, loading, navigate])
 
     return (
-        <button onClick={signInWithGoogle}>
-            Login with Google
-        </button>
+        <div>
+            <button onClick={signInWithGoogle}>
+                Login with Google
+            </button>
+            <button onClick={logout}>
+                Logout
+            </button>
+        </div>
     )
 }

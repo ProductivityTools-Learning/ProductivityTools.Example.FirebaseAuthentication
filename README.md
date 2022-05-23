@@ -37,26 +37,60 @@ Console provides us snipped which should be added to our application
 
 Next we need to add to our application code responsible for opening google login page it is described [here ](https://firebase.google.com/docs/auth/web/google-signin)
 
-```
+```javascript
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-const auth = getAuth();
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
-  ```
+const auth = getAuth(app);
+
+const googleProvider = new GoogleAuthProvider();
+const signInWithGoogle = async () => {
+    try {
+        debugger;
+        const res = await signInWithPopup(auth, googleProvider);
+        console.log(res);
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+};
+```
+
+
+### Service account
+To validate token we need to create firebase app. To do it we need to reference service account key. We can create application without any parameters ```default_app=initialize_app()``` then application will look for the file path under environment variable ```GOOGLE_APPLICATION_CREDENTIALS```. In our example I will load service account key from drive.
+
+Download service account key:
+
+![Service account key](Images/2022-05-21-22-10-49.png)
+
+### Token validation
+Probably there is more 'pro' way of validating token, I did it quick and dirty: ```auth.verify_id_token()``` returns data if token is correct and throws exception if not.
+
+```python
+class ProtectedDateResource(Resource):
+    def get(selfs):
+        id_token=request.headers.environ["HTTP_AUTHORIZATION"]
+        id_token=id_token.replace("Bearer","")
+        id_token=id_token.replace(" ","")
+        decoded_token=auth.verify_id_token(id_token)
+        today=datetime.now()
+        tstr=today.strftime('%m/%d/%Y %H:%m:%S')
+        return tstr,HTTPStatus.OK
+```
+Our service should work 
+
+![](Images/2022-05-23-23-08-24.png)
+
+## Console app
+Console app do not have an interface in which we could login, so we need to create a customtoken on the server side and return it to the consol app. Then console app will take this custom_token and ask server with it to obtain access_token
+
+### Token service in backend app
+It is easy we are creating endpoint which will return us token
+```python
+class TokenResource(Resource):
+    def get(self):
+        custom_token=auth.create_custom_token("password123");
+        return Response(custom_token, mimetype="text/plain",direct_passthrough=True)
+```
+
+### Console app

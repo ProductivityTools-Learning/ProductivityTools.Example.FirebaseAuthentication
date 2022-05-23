@@ -1,6 +1,7 @@
 import apiService from "./apiService";
 import { useState } from 'react'
 import Login from './login'
+import { auth } from './firebase'
 
 function App() {
 
@@ -22,6 +23,11 @@ function App() {
       <button onClick={getDate}>GetDate</button> <span>{date}</span><br />
       <button onClick={getProtectedDate}>GetDate Protected</button> <span>{protectedDate}</span>
       <Login />
+      <div>
+        <p>Welcome!</p>
+        <p>{auth?.currentUser?.displayName}</p>
+        <p>{auth?.currentUser?.email}</p>
+      </div>
     </div>
   );
 }
