@@ -1,3 +1,14 @@
+<!--Category:PowerShell,C#,Python,React,Firebase,Example,WinApp--> 
+ <p align="right">
+    <a href="http://productivitytools.tech/cloud-blobs/"><img src="Images/Header/ProductivityTools_green_40px_2.png" /><a> 
+    <a href="https://github.com/pwujczyk/ProductivityTools.CloudBlobs"><img src="Images/Header/Github_border_40px.png" /></a>
+</p>
+<p align="center">
+    <a href="http://http://productivitytools.tech/">
+        <img src="Images/Header/LogoTitle_green_500px.png" />
+    </a>
+</p>
+
 # FirebaseAuthentication
 
 This example shows how to use Firebase Authentication in two scenarios:
