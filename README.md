@@ -2,7 +2,7 @@
 
 This example shows how to use Firebase Authentication in two scenarios:
 - React application requesting protected resource from backend written in Python using Google authentication
-- Windows application requesting protected resource from console application written in C# using secret key
+- Windows application requesting protected resource from console application written in C# 
 
 <!--more-->
 
@@ -18,8 +18,8 @@ Diagram below presents all compoonents of the solution.
 
 We have folow![](../2022-05-21-08-41-10.png)![](../2022-05-21-08-41-11.png)ing resources
 - Date - not protected resource which will allow us to always validate if service is working https://localhost:8080/Date
-- ProtectedDate - protected resource https://localhost:8080/Date
-- Token - For the console application we are using custom token which will be exchanged for access token. 
+- ProtectedDate - protected resource https://localhost:8080/ProtectedDate
+- Token - For the console application we are using custom token which will be exchanged for access token. https://localhost:8080/Token
 
 ### Firebase configuration
 
@@ -134,5 +134,7 @@ public static async Task<string> GetAccesToken(string custom_token)
     throw new Exception(response.ReasonPhrase);
 }
 ```
-
 ![](Images/2022-05-24-07-01-13.png)
+
+Working application:
+![](Images/2022-05-24-07-21-15.png)
