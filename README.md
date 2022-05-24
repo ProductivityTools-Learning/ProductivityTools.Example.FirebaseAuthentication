@@ -94,3 +94,45 @@ class TokenResource(Resource):
 ```
 
 ### Console app
+
+To call the service first we get custom token, next with this custom token we are calling for the access_token and then for the resource. 
+
+```c#
+string custom_token = await CustomToken.GetCustomToken();
+Console.WriteLine($"Custom token: {custom_token}");
+string access_token = await AccessToken.GetAccesToken(custom_token);
+Console.WriteLine($"Access token: {access_token}");
+string result = await RestService.GetResource(access_token);
+Console.WriteLine(result);
+Console.ReadLine();
+```
+
+#### 
+Access token is retrieved from googleapis. To get it we need to call for the given adddress with Web API Key in the query
+
+
+```c#
+public static async Task<string> GetAccesToken(string custom_token)
+{
+    var HttpClient = new HttpClient();
+    Uri url = new Uri(@"https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyDgSHqUdtL0XQ1i95Y_fMKTHV48Yjo_ZWs");
+
+    HttpClient.DefaultRequestHeaders.Accept.Clear();
+    HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+    object obj = new { token = custom_token, returnSecureToken = true };
+    var dataAsString = JsonConvert.SerializeObject(obj);
+    var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
+
+    HttpResponseMessage response = await HttpClient.PostAsync(url, content);
+    if (response.IsSuccessStatusCode)
+    {
+        var resultAsString = await response.Content.ReadAsStringAsync();
+        AccessToken result = JsonConvert.DeserializeObject<AccessToken>(resultAsString);
+        return result.idToken;
+    }
+    throw new Exception(response.ReasonPhrase);
+}
+```
+
+![](Images/2022-05-24-07-01-13.png)
